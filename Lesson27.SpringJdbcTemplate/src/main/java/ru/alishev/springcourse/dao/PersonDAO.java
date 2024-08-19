@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.alishev.springcourse.models.Person;
 
 import javax.persistence.EntityManager;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class PersonDAO {
@@ -23,12 +25,11 @@ public class PersonDAO {
     public void testNPlus1(){
         Session session = entityManager.unwrap(Session.class);
 
-        //1 запрос
-        List<Person> people = session.createQuery("SELECT p from Person p", Person.class)
-                .getResultList();
-        //N запросов
-        for(Person person:people){
-            System.out.println("Person" + person.getName() + "has:" + person.getItems());
+        Set<Person> people = new HashSet<Person>(session.createQuery("SELECT p FROM Person p LEFT JOIN FETCH p.items")
+                .getResultList());
+
+        for (Person person:people){
+            System.out.println("Person" + person.getName() + "has:"  + person.getItems());
         }
     }
 
