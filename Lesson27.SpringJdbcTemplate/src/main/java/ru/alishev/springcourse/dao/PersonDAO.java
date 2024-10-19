@@ -34,3 +34,10 @@ public class PersonDAO {
     }
 
 }
+<configuration>
+            <!-- Должен ссылаться на папку, содержащую WEB-INF/-->
+            <warSourceDirectory>src/webapp</warSourceDirectory>
+            <warName>spring_mvc</warName>
+            <!-- Позволит нам запускать проект с помощью маппинга контроллерами, без использования конфигурации в web.xml. -->
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+          </configuration>
